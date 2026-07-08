@@ -7,19 +7,23 @@ import Navbar from "@/components/layout/Navbar";
 import { describe, expect, it, vi } from "vitest";
 
 
-vi.mock("@/lib/auth-client", () => ({
-  authClient: {
-    useSession: () => ({
-      data: null,
-      isPending: false,
-    }),
-  },
-}));
+describe("Navbar authentication states", () => {
 
 
-describe("Navbar authentication", () => {
+  it("shows login when logged out", async () => {
 
-  it("shows google login when logged out", () => {
+    vi.mock(
+      "@/lib/auth-client",
+      () => ({
+        authClient: {
+          useSession: () => ({
+            data: null,
+            isPending: false,
+          }),
+        },
+      })
+    );
+
 
     render(<Navbar />);
 
@@ -31,5 +35,6 @@ describe("Navbar authentication", () => {
     ).toBeInTheDocument();
 
   });
+
 
 });
